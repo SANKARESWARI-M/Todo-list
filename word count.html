@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="wordCountApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word and Character Count</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        .count-display {
+            font-size: 18px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        .count-display p {
+            margin: 5px 0;
+        }
+
+        .count-display p span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div ng-controller="wordCountController" class="container">
+        <h1>Word and Character Counter</h1>
+        <textarea ng-model="inputText" placeholder="Enter text here..." rows="5" cols="40"></textarea>
+        
+        <div class="count-display">
+            <p>Character Count: <span>{{ characterCount }}</span></p>
+            <p>Word Count: <span>{{ wordCount }}</span></p>
+        </div>
+    </div>
+
+    <script>
+        var app = angular.module('wordCountApp', []);
+
+        app.controller('wordCountController', function($scope) {
+            $scope.$watch('inputText', function(newVal) {
+                if (newVal) {
+                    $scope.characterCount = newVal.length; // Character count
+                    $scope.wordCount = newVal.trim().split(/\s+/).length; // Word count
+                } else {
+                    $scope.characterCount = 0;
+                    $scope.wordCount = 0;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
